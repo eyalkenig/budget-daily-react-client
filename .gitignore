@@ -1,0 +1,4 @@
+.idea/*
+.idea
+/src/client/public/*
+node_modules

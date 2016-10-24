@@ -1,0 +1,31 @@
+{
+  "name": "budget-daily-client",
+  "version": "1.0.0",
+  "description": "a reactjs client for budget-daily",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack -d --watch",
+    "build": "webpack -p",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eyal Kenig",
+  "license": "MIT",
+  "dependencies": {
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "react-router-bootstrap": "^0.23.1",
+    "redux": "^3.6.0",
+    "redux-auth": "0.0.5-beta5",
+    "redux-thunk": "^0.1.0",
+    "webpack": "^1.13.2"
+  },
+  "devDependencies": {
+    "redux-devtools": "^3.3.1",
+    "babel-plugin-react-transform": "^1.1.0"
+  }
+}
