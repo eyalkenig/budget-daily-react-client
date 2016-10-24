@@ -11,7 +11,7 @@ export default class Navbar extends Component {
         return (
             <nav className='nvabar navbar-default'>
                 <div className='container-fluid'>
-                    <a className="navbar-form" href="#">Budget App</a>
+                    <a className="navbar-brand" href="#">Budget Daily</a>
                     <div className='navbar-form'>
                         { !isAuthenticated &&
                             <Login
