@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux'
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from './actions'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
+    DAILY_SUMMARY_REQUEST, DAILY_SUMMARY_SUCCESS, DAILY_SUMMARY_FAILURE
+} from './actions'
 
 function auth(state = {
         isFetching: false,
@@ -35,10 +37,24 @@ function auth(state = {
     }
 }
 
-// The budget reducer
-function budget(state = {}, action) {
+function summary(state = {
+        summaryRetrieved: false,
+        summaryContent: 0
+    }, action) {
     switch (action.type) {
-
+        case DAILY_SUMMARY_REQUEST:
+            return Object.assign({}, state, {
+                summaryRetrieved: false
+            });
+        case DAILY_SUMMARY_SUCCESS:
+            return Object.assign({}, state, {
+                summaryRetrieved: true,
+                summaryContent: action.response.daily_budget
+            });
+        case DAILY_SUMMARY_FAILURE:
+            return Object.assign({}, state, {
+                summaryRetrieved: false
+            });
         default:
             return state
     }
@@ -48,7 +64,7 @@ function budget(state = {}, action) {
 // can be left split apart above
 const budgetApp = combineReducers({
     auth,
-    budget
+    summary
 });
 
 export default budgetApp
