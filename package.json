@@ -10,7 +10,9 @@
     "test:watch": "npm test -- --watch"
   },
   "jest": {
-    "setupFiles": ["setup.jest.test.env.js"]
+    "setupFiles": [
+      "setup.jest.test.env.js"
+    ]
   },
   "author": "Eyal Kenig",
   "license": "MIT",
@@ -32,6 +34,7 @@
   "devDependencies": {
     "babel-jest": "^16.0.0",
     "babel-plugin-react-transform": "^1.1.0",
+    "enzyme": "^2.5.1",
     "jest": "^16.0.2",
     "redux-devtools": "^3.3.1"
   }

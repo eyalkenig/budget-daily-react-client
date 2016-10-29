@@ -29,7 +29,7 @@ function auth(state = {
             });
         case LOGOUT_SUCCESS:
             return Object.assign({}, state, {
-                isFetching: true,
+                isFetching: false,
                 isAuthenticated: false
         });
         default:
@@ -56,7 +56,7 @@ function summary(state = {
                 summaryRetrieved: false
             });
         default:
-            return state
+            return state;
     }
 }
 
