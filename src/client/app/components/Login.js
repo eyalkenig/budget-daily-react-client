@@ -13,7 +13,7 @@ export default class Login extends Component {
                     Login
                 </button>
                 { errorMessage &&
-                    <p style={{ color:'red' }}>{errorMessage}</p>
+                    <p style={{ color:'red' }} className="login-error-message">{errorMessage}</p>
                 }
             </div>
         )
@@ -30,4 +30,4 @@ export default class Login extends Component {
 Login.propTypes = {
     onLoginClick: PropTypes.func.isRequired,
     errorMessage: PropTypes.string
-}
+};

@@ -18,6 +18,10 @@ var config = {
                 loader : 'babel'
             }
         ]
+    },
+    devServer: {
+        inline:true,
+        port: 3451
     }
 };
 
