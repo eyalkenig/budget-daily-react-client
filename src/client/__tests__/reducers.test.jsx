@@ -32,6 +32,16 @@ describe('auth', () => {
         );
     });
 
+    it('should set auth_token to localStorage', () => {
+        const { auth } = reducer(undefined, {
+            type: actions.LOGIN_SUCCESS,
+            response: {
+                auth_token: 'the_auth_token'
+            }
+        });
+        expect(localStorage.getItem('auth_token')).toEqual('the_auth_token');
+    });
+
     it('should set error on login failure', () => {
         const errorMessage = 'error message'
         const action = {
