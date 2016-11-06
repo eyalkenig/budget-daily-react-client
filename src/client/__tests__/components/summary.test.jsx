@@ -19,15 +19,10 @@ function setup(summaryRetrieved = false, today = 0) {
 
 describe('components', () => {
     describe('Summary', () => {
-        it('should render loading if summary not retrieved', () => {
-            const { enzymeWrapper } = setup(false);
-            expect(enzymeWrapper.find('.label-warning').length).toBe(1);
-            expect(enzymeWrapper.find('.label-warning').text()).toBe('Loading...');
-        });
         it('should render today summary if summary is retrieved', () => {
             const { enzymeWrapper } = setup(true, 542);
-            expect(enzymeWrapper.find('.label-success').length).toBe(1);
-            expect(enzymeWrapper.find('.label-success').text()).toBe('542');
+            expect(enzymeWrapper.find('.todays-budget').length).toBe(1);
+            expect(enzymeWrapper.find('.todays-budget').text()).toBe('542');
         });
         it('should fetch summary on constructing', () => {
             const { props } = setup(false);

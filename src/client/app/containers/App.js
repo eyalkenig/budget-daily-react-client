@@ -1,20 +1,22 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Login from '../components/Login'
 import Navbar from '../components/Navbar'
 import Summary from '../components/Summary'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends Component {
 
 
 
     render() {
-        const { dispatch, isAuthenticated, errorMessage, summaryContent, summaryRetrieved } = this.props;
+        const { dispatch, isAuthenticated, username, errorMessage, summaryContent, summaryRetrieved } = this.props;
 
         return (
+            <MuiThemeProvider>
             <div>
                 <Navbar
                     isAuthenticated={isAuthenticated}
+                    username={username}
                     errorMessage={errorMessage}
                     dispatch={dispatch}>
                 </Navbar>
@@ -26,6 +28,7 @@ class App extends Component {
                             today={summaryContent}/>
                     </div> }
             </div>
+            </MuiThemeProvider>
         )
     }
 }
@@ -40,11 +43,12 @@ App.propTypes = {
 function mapStateToProps(state) {
 
     const { auth, summary } = state;
-    const { isAuthenticated, errorMessage } = auth;
+    const { isAuthenticated, username, errorMessage } = auth;
     const { summaryRetrieved, summaryContent } = summary;
 
     return {
         isAuthenticated,
+        username,
         errorMessage,
         summaryRetrieved,
         summaryContent

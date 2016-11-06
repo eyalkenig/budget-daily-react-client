@@ -39,7 +39,15 @@ describe('login', () => {
         };
         let action = actions.loginUser(credentials);
 
-        expect(action[CALL_API].types).toEqual([actions.LOGIN_REQUEST, actions.LOGIN_SUCCESS, actions.LOGIN_FAILURE]);
+        let expectedRequest = {
+            type: actions.LOGIN_REQUEST,
+            isFetching: true,
+            isAuthenticated: false,
+            credentials
+        }
+        expect(action[CALL_API].types[0]).toEqual(expectedRequest);
+        expect(action[CALL_API].types[1]).toBe(actions.LOGIN_SUCCESS);
+        expect(action[CALL_API].types[2]).toBe(actions.LOGIN_FAILURE);
     });
 });
 

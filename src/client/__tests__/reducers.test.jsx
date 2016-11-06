@@ -8,26 +8,36 @@ describe('auth', () => {
         expect(auth).toEqual(
             {
                 isFetching: false,
-                isAuthenticated: false
+                isAuthenticated: false,
+                username: ''
             }
         );
     });
     it('should have default logged on when local storage has auth token', () => {
         localStorage.setItem('auth_token', 'an-auth-token');
+        localStorage.setItem('username', 'a-username');
         const { auth } = reducer(undefined, {});
         expect(auth).toEqual(
             {
                 isFetching: false,
-                isAuthenticated: true
+                isAuthenticated: true,
+                username: 'a-username'
             }
         );
     });
     it('should be not authenticated and is fetching when login requested', () => {
-        const { auth } = reducer(undefined, { type: actions.LOGIN_REQUEST });
+        var action = {
+            type: actions.LOGIN_REQUEST,
+            credentials: {
+                username: 'a-username'
+            }
+        };
+        const { auth } = reducer(undefined, action);
         expect(auth).toEqual(
             {
                 isFetching: true,
-                isAuthenticated: false
+                isAuthenticated: false,
+                username: 'a-username'
             }
         );
     });
@@ -53,7 +63,8 @@ describe('auth', () => {
             {
                 isFetching: false,
                 isAuthenticated: false,
-                errorMessage: errorMessage
+                errorMessage: errorMessage,
+                username: ''
             }
         );
     });
@@ -62,7 +73,8 @@ describe('auth', () => {
         expect(auth).toEqual(
             {
                 isFetching: false,
-                isAuthenticated: false
+                isAuthenticated: false,
+                username: ''
             }
         );
     });

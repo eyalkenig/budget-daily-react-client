@@ -77,6 +77,8 @@ export default store => next => action => {
 
     const [ requestType, successType, errorType ] = types;
 
+    store.dispatch(requestType);
+
     return callApi(method, endpoint, body, authenticated, version).then(
         response =>
             next({

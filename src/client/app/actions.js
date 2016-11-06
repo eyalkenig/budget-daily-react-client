@@ -41,7 +41,7 @@ export function loginUser(credentials) {
             endpoint: 'authenticate',
             authenticated: false,
             body: 'username='+credentials.username+'&password='+credentials.password,
-            types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE]
+            types: [requestLogin(credentials), LOGIN_SUCCESS, LOGIN_FAILURE]
         }
     }
 }
@@ -107,7 +107,7 @@ export function fetchSummaryAsync() {
             method: 'GET',
             endpoint: 'summary/daily',
             authenticated: true,
-            types: [DAILY_SUMMARY_REQUEST, DAILY_SUMMARY_SUCCESS, DAILY_SUMMARY_FAILURE]
+            types: [requestSummary(), DAILY_SUMMARY_SUCCESS, DAILY_SUMMARY_FAILURE]
         }
     }
 }

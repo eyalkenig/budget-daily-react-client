@@ -5,32 +5,37 @@ import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
 
 function auth(state = {
         isFetching: false,
-        isAuthenticated: localStorage.getItem('auth_token') ? true : false // TODO: add expire
+        isAuthenticated: localStorage.getItem('auth_token') ? true : false, // TODO: add expire
+        username: localStorage.getItem('username') ? localStorage.getItem('username') : ''
     }, action) {
     switch (action.type) {
         case LOGIN_REQUEST:
             return Object.assign({}, state, {
                 isFetching: true,
                 isAuthenticated: false,
-                user: action.credentials
+                username: action.credentials.username
             });
         case LOGIN_SUCCESS:
             localStorage.setItem('auth_token', action.response.auth_token);
+            localStorage.setItem('username', state.username);
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: true,
                 errorMessage: ''
             });
         case LOGIN_FAILURE:
+            localStorage.setItem('username', '');
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: false,
-                errorMessage: action.message
+                errorMessage: action.message,
+                username: ''
             });
         case LOGOUT_SUCCESS:
             return Object.assign({}, state, {
                 isFetching: false,
-                isAuthenticated: false
+                isAuthenticated: false,
+                username: ''
         });
         default:
             return state;
