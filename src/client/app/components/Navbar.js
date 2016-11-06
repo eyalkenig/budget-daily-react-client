@@ -2,30 +2,34 @@ import React, { Component, PropTypes } from 'react'
 import Login from './Login'
 import Logout from './Logout'
 import { loginUser, logoutUser } from '../actions'
+import AppBar from 'material-ui/AppBar';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default class Navbar extends Component {
 
     render() {
-        const { dispatch, isAuthenticated, errorMessage } = this.props;
+        const { dispatch, isAuthenticated, username, errorMessage } = this.props;
 
         return (
-            <nav className='nvabar navbar-default'>
-                <div className='container-fluid'>
-                    <a className="navbar-brand" href="#">Budget Daily</a>
-                    <div className='navbar-form'>
-                        { !isAuthenticated &&
+            <MuiThemeProvider>
+                <AppBar
+                    title="Budget Daily"
+                    iconElementRight={
+                        isAuthenticated ?
+                            <Logout
+                                username={username}
+                                onLogoutClick={ () => dispatch(logoutUser()) }
+                            /> :
                             <Login
                                 errorMessage={errorMessage}
-                                onLoginClick={ credentials => dispatch(loginUser(credentials)) }
+                                onLoginClick={ credentials => {
+                                        dispatch(loginUser(credentials));
+                                    }
+                                }
                             />
-                        }
-
-                        { isAuthenticated &&
-                            <Logout onLogoutClick={() => dispatch(logoutUser())} />
-                        }
-                    </div>
-                </div>
-            </nav>
+                    }
+                />
+            </MuiThemeProvider>
         )
     }
 }
@@ -33,5 +37,6 @@ export default class Navbar extends Component {
 Navbar.propTypes = {
     dispatch: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.string
+    errorMessage: PropTypes.string,
+    username: PropTypes.string
 };

@@ -1,7 +1,9 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import Navbar from '../../app/components/Navbar'
-import { loginUser, logoutUser } from '../../app/actions'
+import { loginUser } from '../../app/actions'
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 function setup(isAuthenticated = false, errorMessage = '') {
     const props = {
@@ -11,39 +13,41 @@ function setup(isAuthenticated = false, errorMessage = '') {
     };
 
     const enzymeWrapper = shallow(<Navbar {...props} />);
+    const fullEnzymeWrapper = mount(<Navbar {...props} />);
     return {
         props,
-        enzymeWrapper
+        enzymeWrapper,
+        fullEnzymeWrapper
     }
 }
 
 describe('components', () => {
     describe('Navbar', () => {
         it('should render login if not authenticated', () => {
-            const { enzymeWrapper } = setup(false);
-            expect(enzymeWrapper.find('Login').length).toBe(1);
+            const { fullEnzymeWrapper } = setup(false);
+            expect(fullEnzymeWrapper.find('Login').length).toBe(1);
         });
         it('should render logout if authenticated', () => {
-            const { enzymeWrapper} = setup(true);
-            expect(enzymeWrapper.find('Logout').length).toBe(1);
+            const { fullEnzymeWrapper} = setup(true);
+            expect(fullEnzymeWrapper.find('Logout').length).toBe(1);
         });
         it('should supply error message to login', () => {
-            const { enzymeWrapper} = setup(false, 'the error itself');
-            var loginErrorMessageProp = enzymeWrapper.find('Login').get(0).props.errorMessage;
+            const { fullEnzymeWrapper} = setup(false, 'the error itself');
+            var loginErrorMessageProp = fullEnzymeWrapper.find('Login').get(0).props.errorMessage;
             expect(loginErrorMessageProp).toEqual('the error itself');
         });
         it('should dispatch loginUser with credentials onLoginClick', () => {
-            const { enzymeWrapper, props } = setup(false, '');
+            const { fullEnzymeWrapper, props } = setup(false, '');
             let credentials = {username: 'user', password: 'password'};
-            enzymeWrapper.find('Login').get(0).props.onLoginClick(credentials);
+            fullEnzymeWrapper.find('Login').get(0).props.onLoginClick(credentials);
             expect(props.dispatch.mock.calls.length).toBe(1);
             let loginUserAction = loginUser(credentials);
             expect(props.dispatch.mock.calls[0][0]).toEqual(loginUserAction);
         });
 
         it('should dispatch logoutUser onLooutClick', () => {
-            const { enzymeWrapper, props } = setup(true);
-            enzymeWrapper.find('Logout').get(0).props.onLogoutClick();
+            const { fullEnzymeWrapper, props } = setup(true);
+            fullEnzymeWrapper.find('Logout').get(0).props.onLogoutClick();
             expect(props.dispatch.mock.calls.length).toBe(1);
         });
     });

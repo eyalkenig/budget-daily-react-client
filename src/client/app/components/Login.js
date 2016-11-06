@@ -1,4 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default class Login extends Component {
 
@@ -6,23 +9,22 @@ export default class Login extends Component {
         const { errorMessage } = this.props
 
         return (
-            <div>
-                <input type='text' ref='username' className="form-control" placeholder='Username'/>
-                <input type='password' ref='password' className="form-control" placeholder='Password'/>
-                <button onClick={ (event) => this.handleClick(event) } className="btn btn-primary">
-                    Login
-                </button>
-                { errorMessage &&
-                    <p style={{ color:'red' }} className="login-error-message">{errorMessage}</p>
-                }
-            </div>
+            <MuiThemeProvider>
+                <div>
+                    <TextField type='text' ref='username' hintText='Username' errorText={errorMessage}/>
+                    <TextField type='password' ref='password' hintText='Password'/>
+                    <FlatButton onClick={ (event) => this.handleClick(event) } >
+                        Login
+                    </FlatButton>
+                </div>
+            </MuiThemeProvider>
         )
     }
 
     handleClick(event) {
         const username = this.refs.username;
         const password = this.refs.password;
-        const credentials = { username: username.value.trim(), password: password.value.trim() };
+        const credentials = { username: username.input.value.trim(), password: password.input.value.trim() };
         this.props.onLoginClick(credentials);
     }
 }
